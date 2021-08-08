@@ -1,35 +1,11 @@
-import React from 'react';
-import { Editor, EditorState, DraftEditorCommand, RichUtils } from 'draft-js';
-import 'draft-js/dist/Draft.css';
+import Editor from './components/editor'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-function App() {
-  const [editorState, setEditorState] = React.useState(() =>
-    EditorState.createEmpty(),
-  );
-  const onChange = (state: EditorState) => {
-    setEditorState(state);
-    console.log(state.getCurrentContent());
-  };
+const App = () => (
+  <div>
+    <h2>RichText Editor</h2>
+    <Editor />
+  </div>
+);
 
-  const handleKeyCmd = (
-    cmd: DraftEditorCommand,
-    state: EditorState,
-  ): 'handled' | 'not-handled' => {
-    const newState = RichUtils.handleKeyCommand(state, cmd);
-
-    if (newState) {
-      onChange(state);
-      return 'handled';
-    }
-    return 'not-handled';
-  };
-  return (
-    <Editor
-      editorState={editorState}
-      onChange={onChange}
-      handleKeyCommand={handleKeyCmd}
-    />
-  );
-}
-
-export default App;
+export default App
